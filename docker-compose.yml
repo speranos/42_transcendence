@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  back-end:
+    build:
+      context: back
+    ports:
+      - "3000:3000"
+      - "3056:3056"
+      - "5555:5555"
+    networks:
+      - batman-network
+    env_file:
+      - .env
+    volumes:
+      - ./back/src:/server/src
+    depends_on:
+      - database
+  front-end:
+    build:
+      context: front
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - batman-network
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./front/src:/usr/src/src
+    depends_on:
+      - back-end
+  database:
+    build:
+      context: back/database
+    restart: always
+    env_file:
+      - .env
+    networks :
+      - batman-network
+    volumes :
+      - ./db:/var/lib/postgres/data
+    ports:
+      - "5432:5432"
+networks:
+  batman-network:
+    driver: bridge
+volumes:
+  database:
+    driver: local
+  back-end:
+    driver: local
+  front-end:
+    driver: local

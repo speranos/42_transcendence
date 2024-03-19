@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  userID                  String                @id @default(uuid())
+  avatar                  String                @default("./data/default.jpeg")
+  userName                String                @unique
+  email                   String                @unique
+  secret2FA               String?               @unique
+  auth2FA_id              String?               @unique
+  RTokens                 String                @default(uuid()) @unique
+  finishedProfile         Boolean               @default(false)
+  userOnline              Boolean               @default(false)
+  userInGame              Boolean               @default(false)
+  userWaiting             Boolean               @default(false)
+  is2FA                   Boolean               @default(false)
+  creationTime            DateTime              @default(now())
+  updateTime              DateTime              @updatedAt
+  matchPlayed             Int                   @default(0)
+  nOfWins                 Int                   @default(0)
+  nOfLoss                 Int                   @default(0)
+  winRate                 Float                 @default(0)
+  P1                      Games[]               @relation("Player1")
+  P2                      Games[]               @relation("Player2")
+  Friendship1             Friendship[]          @relation("Friendship1")
+  Friendship2             Friendship[]          @relation("Friendship2")
+  receivedRequests        Requests[]            @relation("Received")
+  sentRequests            Requests[]            @relation("Sent")
+  memberin                Room[]                @relation("memberin")
+  banedin                 Room[]                @relation("banedin")
+  membership              RoomMembership[]      @relation("member")
+  Achievements            Achievements[]
+}
+
+model Games{
+  gameID                  String                @unique @id @default(uuid())
+  player1ID               String        
+  player2ID               String        
+  winnerID                String?        
+  scoreP1                 Int                   @default(0)
+  scoreP2                 Int                   @default(0)
+  specialMode             Boolean               @default(false)
+  endTime                 DateTime              @updatedAt()
+  P1                      User                  @relation(name: "Player1", fields: [player1ID], references: [userID])
+  P2                      User                  @relation(name: "Player2", fields: [player2ID], references: [userID])
+}
+
+model Achievements{
+  achievementID           String                 @id @default(uuid())
+  userAID                 String
+  Description             String
+  achieved                Boolean                @default(false)
+  prizeMin                Int
+  prizeImg                String
+  creationTime            DateTime               @default(now())
+  updateAt                DateTime               @updatedAt
+  User                    User                   @relation(fields: [userAID], references: [userID])
+}
+
+model Room{
+  id                      String                  @id @default(uuid())
+  userId                  String 
+  name                    String
+  type                    RoomType
+  password                String?
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
+
+  members                 User[]                  @relation("memberin")
+  banedusers              User[]                  @relation("banedin")
+  messages                Message[]
+  RoomMembership          RoomMembership[]
+}
+
+model RoomMembership{
+  userID                  String                  
+  roomID                  String                  
+  role                    RoomRole
+  ismuted                 Boolean                 @default(false)
+  muteend                 DateTime?
+  createdAt               DateTime                @default(now())
+  user                    User                    @relation("member", fields: [userID], references: [userID])
+  room                    Room                    @relation(fields: [roomID], references: [id])
+  @@id(name : "membershipID", [userID, roomID])
+}
+
+model Friendship{
+  friendshipID            String                  @id @default(uuid())
+  user1ID                 String        
+  user2ID                 String
+  creationTime            DateTime                @default(now())
+  friendshipStatus        FriendshipStatus   
+  user1                   User                    @relation(name : "Friendship1", fields: [user1ID], references: [userID])
+  user2                   User                    @relation(name : "Friendship2", fields: [user2ID], references: [userID])
+}
+
+model Requests{
+  requestID               String                  @id @default(uuid())
+  senderID                String
+  receiverID              String
+  status                  RequestStatus
+  type                    RequestType
+  ifGameID                String?                 
+  ifGameType              Mode?                   @default(REGULAR)
+  creationTime            DateTime                @default(now())
+  receiver                User                    @relation("Received", fields: [receiverID], references: [userID])
+  sender                  User                    @relation("Sent", fields: [senderID], references: [userID])
+}
+
+
+model Message{
+  id                      String                  @id @default(uuid())
+  content                 String
+  sendId                  String
+  roomId                  String
+  createdAt               DateTime                @default(now())
+
+  room                    Room                    @relation(fields: [roomId], references: [id])
+}
+
+enum RequestStatus{
+  DENIED
+  ACCEPTED
+  PENDING
+}
+
+enum  FriendshipStatus{
+  FRIENDS 
+  BLOCKED
+}
+
+enum  RequestType{
+  GAME 
+  FRIENDSHIP
+}
+
+enum  Mode{
+  REGULAR
+  SUPER
+}
+
+enum  RoomType{
+  DM
+  PUBLIC
+  PRIVATE
+  PASSWORD_PROTECTED
+}
+
+enum RoomRole{
+  OWNER
+  ADMIN
+  MEMBER
+  BANNED
+}

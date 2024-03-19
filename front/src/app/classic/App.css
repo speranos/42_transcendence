@@ -1,0 +1,238 @@
+Body {
+
+  background-color: rgb(0, 0, 0);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+@media screen and (max-width: 800px) {
+  .pdp
+  {
+    width: '40px';
+    height: '40px';
+    border-radius: '10px'
+  }
+  .text{
+    text-align: center;
+    font-size: 30px;
+    color: aliceblue;
+  }
+  #pong {
+    width: 700px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+  }
+
+  .button-container
+  {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .big-button1
+  {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 8px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .big-button2
+  {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 8px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+}
+@media screen and (max-width: 700px) {
+  .pdp
+  {
+    width: '30px';
+    height: '30px';
+  }
+  .text{
+    text-align: center;
+    font-size: 20px;
+    color: aliceblue;
+  }
+  #pong {
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding-left: 100px;
+  }
+
+  .button-container
+  {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .big-button1
+  {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 6px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .big-button2
+  {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 6px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+}
+.text{
+  text-align: center;
+  font-size: 50px;
+  color: aliceblue;
+}
+
+@media screen and (max-width: 600px) {
+
+  .text{
+    text-align: center;
+    font-size: 20px;
+    color: aliceblue;
+  }
+  #pong {
+    width: 500px;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding-left: 100px;
+  }
+
+  .button-container
+  {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .big-button1
+  {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 6px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .big-button2
+  {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 6px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+}
+
+.text{
+  text-align: center;
+  font-size: 50px;
+  color: aliceblue;
+}
+
+.button-container
+{
+  display: flex;
+  justify-content: center;
+}
+
+.big-button1
+{
+  background-color: #333;
+  border: none;
+  color: white;
+  padding: 20px 44px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.big-button3
+{
+  background-color: rgb(94, 36, 114);
+  border: none;
+  color: white;
+  padding: 30px 64px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.wait {
+  text-align: center;
+  font-size: 50px;
+  color: aliceblue;
+}
+.sign_page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.resized_sign {
+  width: 50%;
+  height: auto;
+}
+.button-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  max-width: 100%;
+  height: auto;
+  width: 15%; 
+}
